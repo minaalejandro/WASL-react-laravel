@@ -18,6 +18,7 @@ const Wasl = () => {
 	const [platenumbr, setPlateNumber] = useState('');
 	const [platetype, setPlateType] = useState('');
 	const [validationError,setValidationError] = useState({})
+	const [state, setState] = useState(true);
 	const handleCreate = () => {
 		setIsModalVisible(true)
 	}
@@ -38,19 +39,21 @@ const Wasl = () => {
 				icon: "success",
 				text: data.message
 			})	
+			setState(s => !s);
 			setIsModalVisible(false);
+			setOwnerIdNum("");
+			setOwnerDateOfBirthHijri("");
+			setOwnerDateOfBirthGregorian("");
+			setSequenceNumber("");
+			setPlateLetterRight("");
+			setPlateLetterMiddle("");
+			setPlateLetterLeft("");
+			setPlateNumber("");
+			setPlateType("");
 		}).catch(({ response }) => {
 			if (response.status === 422) {
 				setValidationError(response.data.errors);
-				setOwnerIdNum("");
-				setOwnerDateOfBirthHijri("");
-				setOwnerDateOfBirthGregorian("");
-				setSequenceNumber("");
-				setPlateLetterRight("");
-				setPlateLetterMiddle("");
-				setPlateLetterLeft("");
-				setPlateNumber("");
-				setPlateType("");
+				
 			} else {
 				Swal.fire({
 					text: response.data.message,
@@ -70,7 +73,7 @@ const Wasl = () => {
 				<Button type="primary" onClick={handleCreate}>Vehicle Registration</Button>
 			</div>
 			<div>
-				<Table/>
+				<Table state={state}/>
 			</div>
 			<Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
 				<Form
@@ -93,7 +96,7 @@ const Wasl = () => {
 						}} />
 					</Form.Item>
 					<Form.Item label="ownerDataOfBirthGragorian" rules={[{ required: true, },]} >
-						<Input ovalue={ownerdateofbirthgregorian} onChange={(event) => {
+						<Input value={ownerdateofbirthgregorian} onChange={(event) => {
 							setOwnerDateOfBirthGregorian(event.target.value)
 						}} />
 					</Form.Item>
