@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import { Button, Modal, Form, Input, Row, Col } from 'antd';
 import fetch from 'auth/FetchInterceptor';
 import '../.././custom.css'
+import axios from 'axios'
+import Swal from 'sweetalert2';
+import Table from './components/table';
 
 const Wasl = () => {
 	const [isModalVisible, setIsModalVisible] = useState(false);
@@ -14,14 +17,15 @@ const Wasl = () => {
 	const [plateletterleft, setPlateLetterLeft] = useState('');
 	const [platenumbr, setPlateNumber] = useState('');
 	const [platetype, setPlateType] = useState('');
+	const [validationError,setValidationError] = useState({})
 	const handleCreate = () => {
 		setIsModalVisible(true)
 	}
-	const handleOk = () => {
-		let params = {
+	const handleOk = async () => {
+		let formData = {
 			owneridnum: owneridnum,
 			ownerdateofbirthhijri: ownerdateofbirthhijri,
-			ownerdateofbirthgregorian : ownerdateofbirthgregorian,
+			ownerdateofbirthgregorian: ownerdateofbirthgregorian,
 			sequencenumber: sequencenumber,
 			plateletterright: plateletterright,
 			platelettermiddle: platelettermiddle,
@@ -29,16 +33,30 @@ const Wasl = () => {
 			platenumbr: platenumbr,
 			platetype: platetype
 		}
-		fetch({
-            url: '/products',
-            method: 'post',
-            headers: {
-                'public-request': 'true'
-            },
-            params,
-        }).then((resp) => {
+		await axios.post(`http://localhost:8000/api/products`, formData).then(({ data }) => {
+			Swal.fire({
+				icon: "success",
+				text: data.message
+			})	
 			setIsModalVisible(false);
-           console.log("sucess");
+		}).catch(({ response }) => {
+			if (response.status === 422) {
+				setValidationError(response.data.errors);
+				setOwnerIdNum("");
+				setOwnerDateOfBirthHijri("");
+				setOwnerDateOfBirthGregorian("");
+				setSequenceNumber("");
+				setPlateLetterRight("");
+				setPlateLetterMiddle("");
+				setPlateLetterLeft("");
+				setPlateNumber("");
+				setPlateType("");
+			} else {
+				Swal.fire({
+					text: response.data.message,
+					icon: "error"
+				})
+			}
 		})
 	};
 
@@ -50,6 +68,9 @@ const Wasl = () => {
 			<div className='header'>
 				<h1>Wasl Management</h1>
 				<Button type="primary" onClick={handleCreate}>Vehicle Registration</Button>
+			</div>
+			<div>
+				<Table/>
 			</div>
 			<Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
 				<Form
