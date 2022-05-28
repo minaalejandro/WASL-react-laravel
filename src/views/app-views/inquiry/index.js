@@ -11,13 +11,36 @@ const Inquiry = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [platenumbr, setPlateNumber] = useState('');
     const [sequencenumber, setSequenceNumber] = useState('');
+    const [validationError, setValidationError] = useState({})
     
     useEffect(() =>{
         setIsModalVisible(true);
     })
 
     const handleOk = async () => {
-		console.log("console");
+        let formData = {
+			sequencenumber: sequencenumber,
+			platenumbr: platenumbr,
+		}
+        await axios.post(`http://localhost:8000/api/inquiry`, formData).then(({ data }) => {
+			Swal.fire({
+				icon: "success",
+				text: data.message
+			})
+			setSequenceNumber("");
+			setPlateNumber("");
+            history.push("/app/wasl")
+		}).catch(({ response }) => {
+			if (response.status === 422) {
+				setValidationError(response.data.errors);
+
+			} else {
+				Swal.fire({
+					text: response.data.message,
+					icon: "error"
+				})
+			}
+		})
 	
 	};
 
