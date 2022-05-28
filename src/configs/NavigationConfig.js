@@ -24,6 +24,13 @@ const dashBoardNavTree = [{
   icon: DashboardOutlined,
   breadcrumb: false,
   submenu: []
+},{
+  key: 'location',
+  path: `${APP_PREFIX_PATH}/location`,
+  title: 'Update Current Location',
+  icon: DashboardOutlined,
+  breadcrumb: false,
+  submenu: []
 }
 
 ]
