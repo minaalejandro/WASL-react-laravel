@@ -90,8 +90,8 @@ export default function Expand(props) {
                 return (
                     <>
                         <div style={{ display: "flex" }}>
-                            <div style={{ padding: "10px" }}><EditOutlined onClick={handleEdit(rowData)} /></div>
-                            <div style={{ padding: "10px" }}><DeleteOutlined onClick={handleDelete(rowData)} /></div>
+                            <div style={{ padding: "10px" }}><EditOutlined style={{ color: 'green' }}  onClick={handleEdit(rowData)} /></div>
+                            <div style={{ padding: "10px" }}><DeleteOutlined style={{ color: 'red' }} onClick={handleDelete(rowData)} /></div>
                         </div>
                     </>
                 )

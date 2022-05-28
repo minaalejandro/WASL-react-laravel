@@ -17,7 +17,16 @@ const dashBoardNavTree = [{
   icon: DashboardOutlined,
   breadcrumb: false,
   submenu: []
-}]
+},{
+  key: 'inquiry',
+  path: `${APP_PREFIX_PATH}/inquiry`,
+  title: 'Vehicle Inquiry',
+  icon: DashboardOutlined,
+  breadcrumb: false,
+  submenu: []
+}
+
+]
 
 const navigationConfig = [
   ...dashBoardNavTree

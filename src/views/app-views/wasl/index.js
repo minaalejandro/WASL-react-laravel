@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Modal, Form, Input, Row, Col } from 'antd';
+import { Button, Modal, Form, Input, Alert  } from 'antd';
 import fetch from 'auth/FetchInterceptor';
 import '../.././custom.css'
 import axios from 'axios'
@@ -17,12 +17,19 @@ const Wasl = () => {
 	const [plateletterleft, setPlateLetterLeft] = useState('');
 	const [platenumbr, setPlateNumber] = useState('');
 	const [platetype, setPlateType] = useState('');
-	const [validationError,setValidationError] = useState({})
+	const [validationError, setValidationError] = useState({})
 	const [state, setState] = useState(true);
 	const handleCreate = () => {
 		setIsModalVisible(true)
 	}
+	const handleAlert = () => {
+		return <Alert message="Error Text" type="error" />
+	}
 	const handleOk = async () => {
+		console.log(owneridnum);
+		if (owneridnum == "") {
+			handleAlert();
+		}
 		let formData = {
 			owneridnum: owneridnum,
 			ownerdateofbirthhijri: ownerdateofbirthhijri,
@@ -38,7 +45,7 @@ const Wasl = () => {
 			Swal.fire({
 				icon: "success",
 				text: data.message
-			})	
+			})
 			setState(s => !s);
 			setIsModalVisible(false);
 			setOwnerIdNum("");
@@ -53,7 +60,7 @@ const Wasl = () => {
 		}).catch(({ response }) => {
 			if (response.status === 422) {
 				setValidationError(response.data.errors);
-				
+
 			} else {
 				Swal.fire({
 					text: response.data.message,
@@ -69,11 +76,11 @@ const Wasl = () => {
 	return (
 		<>
 			<div className='header'>
-				<h1>Wasl Management</h1>
-				<Button type="primary" onClick={handleCreate}>Vehicle Registration</Button>
+				<h1 className="text-3xl font-bold underline">Wasl Management</h1>
+				<Button className='text-blue-300 group-hover:text-white' onClick={handleCreate}>Vehicle Registration</Button>
 			</div>
 			<div>
-				<Table state={state}/>
+				<Table state={state} />
 			</div>
 			<Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
 				<Form
@@ -85,47 +92,92 @@ const Wasl = () => {
 					}}
 					layout="horizontal"
 				>
-					<Form.Item label="ownerIdentityNumber" rules={[{ required: true, },]}>
+					<Form.Item label="ownerIdentityNumber" rules={[
+						{
+							required: true,
+							message: 'Please input your username!',
+						},
+					]}>
 						<Input value={owneridnum} onChange={(event) => {
 							setOwnerIdNum(event.target.value)
 						}} />
 					</Form.Item>
-					<Form.Item label="ownerDateOfBirthHijri" rules={[{ required: true, },]} >
+					<Form.Item label="ownerDateOfBirthHijri" rules={[
+						{
+							required: true,
+							message: 'Please input your username!',
+						},
+					]} >
 						<Input value={ownerdateofbirthhijri} onChange={(event) => {
 							setOwnerDateOfBirthHijri(event.target.value)
 						}} />
 					</Form.Item>
-					<Form.Item label="ownerDataOfBirthGragorian" rules={[{ required: true, },]} >
+					<Form.Item label="ownerDataOfBirthGragorian" rules={[
+						{
+							required: true,
+							message: 'Please input your username!',
+						},
+					]} >
 						<Input value={ownerdateofbirthgregorian} onChange={(event) => {
 							setOwnerDateOfBirthGregorian(event.target.value)
 						}} />
 					</Form.Item>
-					<Form.Item label="sequenceNumber" rules={[{ required: true, },]} >
+					<Form.Item label="sequenceNumber" rules={[
+						{
+							required: true,
+							message: 'Please input your username!',
+						},
+					]} >
 						<Input value={sequencenumber} onChange={(event) => {
 							setSequenceNumber(event.target.value)
 						}} />
 					</Form.Item>
-					<Form.Item label="plateLetterRight" rules={[{ required: true, },]} >
+					<Form.Item label="plateLetterRight" rules={[
+						{
+							required: true,
+							message: 'Please input your username!',
+						},
+					]}>
 						<Input value={plateletterright} onChange={(event) => {
 							setPlateLetterRight(event.target.value)
 						}} />
 					</Form.Item>
-					<Form.Item label="plateLetterMiddle" rules={[{ required: true, },]} >
+					<Form.Item label="plateLetterMiddle" rules={[
+						{
+							required: true,
+							message: 'Please input your username!',
+						},
+					]} >
 						<Input value={platelettermiddle} onChange={(event) => {
 							setPlateLetterMiddle(event.target.value)
 						}} />
 					</Form.Item>
-					<Form.Item label="plateLetterLeft" rules={[{ required: true, },]} >
+					<Form.Item label="plateLetterLeft" rules={[
+						{
+							required: true,
+							message: 'Please input your username!',
+						},
+					]} >
 						<Input value={plateletterleft} onChange={(event) => {
 							setPlateLetterLeft(event.target.value)
 						}} />
 					</Form.Item>
-					<Form.Item label="plateNumber" rules={[{ required: true, },]} >
+					<Form.Item label="plateNumber" rules={[
+						{
+							required: true,
+							message: 'Please input your username!',
+						},
+					]} >
 						<Input value={platenumbr} onChange={(event) => {
 							setPlateNumber(event.target.value)
 						}} />
 					</Form.Item>
-					<Form.Item label="plateType" rules={[{ required: true, },]} >
+					<Form.Item label="plateType" rules={[
+						{
+							required: true,
+							message: 'Please input your username!',
+						},
+					]}>
 						<Input value={platetype} onChange={(event) => {
 							setPlateType(event.target.value)
 						}} />

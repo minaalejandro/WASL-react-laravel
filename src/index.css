@@ -19,3 +19,6 @@
 .loading .ant-spin {
   color: #3e79f7;
 }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
