@@ -23,9 +23,11 @@ const Inquiry = () => {
 			platenumbr: platenumbr,
 		}
         await axios.post(`http://localhost:8000/api/inquiry`, formData).then(({ data }) => {
+            console.log(data);
 			Swal.fire({
-				icon: "success",
-				text: data.message
+				icon: "error",
+				title: data.message,
+                html: data.success + '<br>' + data.resultCode,
 			})
 			setSequenceNumber("");
 			setPlateNumber("");
