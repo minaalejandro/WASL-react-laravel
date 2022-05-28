@@ -25,6 +25,13 @@ const dashBoardNavTree = [{
   breadcrumb: false,
   submenu: []
 },{
+  key: 'operation',
+  path: `${APP_PREFIX_PATH}/operation`,
+  title: 'Rental Operation Registration ',
+  icon: DashboardOutlined,
+  breadcrumb: false,
+  submenu: []
+},{
   key: 'location',
   path: `${APP_PREFIX_PATH}/location`,
   title: 'Update Current Location',

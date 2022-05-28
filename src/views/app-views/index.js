@@ -10,6 +10,7 @@ export const AppViews = () => {
         <Route path={`${APP_PREFIX_PATH}/home`} component={lazy(() => import(`./home`))} />
         <Route path={`${APP_PREFIX_PATH}/wasl`} component={lazy(() => import(`./wasl`))} />
         <Route path={`${APP_PREFIX_PATH}/inquiry`} component={lazy(() => import(`./inquiry`))} />
+        <Route path={`${APP_PREFIX_PATH}/operation`} component={lazy(() => import(`./operation`))} />
         <Route path={`${APP_PREFIX_PATH}/location`} component={lazy(() => import(`./location`))} />
         {/* <Route path={`${APP_PREFIX_PATH}/wasl/edit/:id`} component={lazy(() => import(`./wasl/components/edit.component`))} />
         <Route path={`${APP_PREFIX_PATH}/wasl/create`} component={lazy(() => import(`./wasl/components/create.component`))} />
